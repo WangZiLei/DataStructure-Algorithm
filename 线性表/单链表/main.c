@@ -21,6 +21,7 @@ bool Insert(Node *L,int index,int value);
 bool Delete(Node *L,int index);
 Node* ReturnPoint(Node *L,int index); //返回链表中第index个元素的地址
 bool Pop(Node *L,int value);
+int GetLength(Node *L);
 
 int main(){
 	Node *HeadPoint=CreateList();
@@ -30,10 +31,9 @@ int main(){
 	GetValue(HeadPoint,2);
 	ReviseValue(HeadPoint,2,60);
 	GetValue(HeadPoint,2);
-
 	Travel(HeadPoint);
 	printf("%d",Find(HeadPoint,1));
-
+	printf("length:%d\n",GetLength(HeadPoint));
 	return 0;
 }
 
@@ -135,6 +135,15 @@ int Find(Node *L,int value){
 	int i=0;
 	while(tmp->next!=NULL&&tmp->elem!=value){
 		tmp=tmp->next;
+		i++;
+	}
+	return i;
+}
+
+int GetLength(Node *L){
+	int i=0;
+	while(L->next!=NULL){
+		L=L->next;
 		i++;
 	}
 	return i;
