@@ -19,16 +19,17 @@ bool IsEmpty(Node *stack);
 
 
 int main(){
-	Node *stack;
-	stack=InitStack();
-	Push(&stack,5);
-	Push(&stack,2);
-	Push(&stack,35);
-	Push(&stack,66);
-	Pop(&stack);
+	int dec,jinzhi=2;
+	Node *stack=InitStack();
+	printf("请输入一个十进制数:");
+	scanf("%d",&dec);
+	while(dec){
+		printf("dec:%d tmp:%d\n",dec,dec%jinzhi);
+		Push(&stack,dec%jinzhi);
+		dec=dec/jinzhi;
+	}
+	printf("转换为%d进制为:",jinzhi);
 	Travel(stack);
-	printf("%d\n",GetTopElem(stack));
-	return 0;
 }
 
 Node* InitStack(){
@@ -80,6 +81,5 @@ bool IsEmpty(Node *stack){
 		return true;
 	return false;
 }
-
 
 
