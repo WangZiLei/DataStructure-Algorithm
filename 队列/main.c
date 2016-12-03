@@ -25,7 +25,6 @@ bool GetFrontElem(Queue *queue,int *elem);
 bool GetTailElem(Queue *queue,int *elem);
 void TravelQueue(Queue *queue);
 
-//代码有问题
 
 int main(){
 	int elem=0;
@@ -34,7 +33,7 @@ int main(){
 	PushQueue(&queue,2);
 	PopQueue(&queue,&elem);
 	printf("首元素为%d ",elem);
-	/*PushQueue(&queue,6);
+	PushQueue(&queue,6);
 	PushQueue(&queue,5);
 	PushQueue(&queue,87);
 	PushQueue(&queue,45);
@@ -43,14 +42,11 @@ int main(){
 	GetFrontElem(&queue,&elem);
 	printf("首元素为%d ",elem);
 	GetTailElem(&queue,&elem);
-	printf("尾元素为%d\n",elem);*/
-
+	printf("尾元素为%d\n",elem);
 	printf("队列长度为%d\n",GetQueueLength(&queue));
-
-	//TravelQueue(&queue);
-	//DestroyQueue(&queue);
+	TravelQueue(&queue);
+	DestroyQueue(&queue);
 	printf("队列长度为%d ",GetQueueLength(&queue));
-
 
 	return 0;
 }
@@ -92,9 +88,9 @@ void PopQueue(Queue *queue,int *elem){
 		return;
 	tmp=queue->front->next;
 	*elem=tmp->elem;
-	if(frontP->next==queue->tail){
-		//如果最后一个元素也被pop了
-		frontP=NULL;
+	if(frontP->next==NULL){
+		//如果最后一个元素也将被pop
+		queue->tail=queue->front;
 	}else{
 		queue->front->next=tmp->next;
 	}
@@ -131,7 +127,7 @@ void DestroyQueue(Queue *queue){
 	int i;
 	while(queue->front!=queue->tail){
 		PopQueue(queue,&i);
-		printf("%d ",i);
+		//printf("%d ",i);
 	}
 }
 
