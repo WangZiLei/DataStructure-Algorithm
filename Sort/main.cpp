@@ -4,17 +4,24 @@
 using namespace std;
 
 int main(){
-	int a[] = {6,5,8,9,1,57,27,45,5,16,6,666};
+	const int array_length = 50000;
+	int *a = Sort::generate_rand_array(0,156,array_length);
+	auto s = Sort(a,array_length);
 
-	auto s = Sort(a,12);
+	auto time_begin = clock();
+	//s.insert_sort();
+	s.select_sort();
+	auto time_end = clock();
+	cout<<"Running time: "<<(double)(time_end-time_begin)<<"ms"<<endl;
 
-	s.insert_sort();
 	if(s.is_sorted())
 		cout<<"Sorted!"<<endl;
 	else
 		cout<<"Not Sorted!"<<endl;
-	for(int i=0;i<12;i++)
+	/*
+	for(int i=0;i<array_length;i++)
 		cout<<a[i]<<" ";
 	cout<<endl;
+	*/
 	return 0;
 }

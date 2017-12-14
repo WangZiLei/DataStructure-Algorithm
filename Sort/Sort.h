@@ -1,6 +1,9 @@
 #ifndef SORT_H_INCLUDED
 #define SORT_H_INCLUDED
 
+#include <stdlib.h>
+#include <time.h>
+
 class Sort{
 public:
 	Sort(int a[],int n);
@@ -8,6 +11,8 @@ public:
 	void insert_sort();
 	void select_sort();
 	bool is_sorted();
+	//rand number is in (min,max]
+	static int *generate_rand_array(int min,int max,int n);
 
 private:
 	int* array;
@@ -59,6 +64,16 @@ void Sort::insert_sort(){
 			array[j+1] = array[j];
 		array[insert_position] = tmp;
     }
+}
+
+int* Sort::generate_rand_array(int min,int max,int n){
+	int *a = new int[n];
+	if(a==0)
+		return nullptr;
+	srand((unsigned)time(NULL));
+	for(int i=0;i<n;i++)
+		a[i] = rand()%(max-min)+min+1;
+	return a;
 }
 
 #endif // SORT_H_INCLUDED
