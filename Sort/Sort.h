@@ -46,14 +46,9 @@ void Sort::insert_sort(){
     for(int i=1;i<length;i++){
 		//array[current_position] is the element to be inserting into previous array
 		//also the element selected currently
-		int current_position=i;
-
-		for(int k=0;k<length;k++)
-			std::cout<<array[k]<<" ";
-		std::cout<<std::endl;
-
+		int current_position = i;
 		int insert_position = current_position;
-		//we can use binary-find to specify the insert_position
+		//we can also use binary-find to specify the insert_position
         for(int j=current_position;j>=0;j--)
 			if(array[j]>array[current_position])
 				insert_position = j;
