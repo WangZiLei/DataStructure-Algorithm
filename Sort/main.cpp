@@ -4,7 +4,7 @@
 using namespace std;
 
 int main(){
-	int a[] = {6,5,8,9,6,57,27,45,5,16,6,666};
+	int a[] = {6,5,8,9,1,57,27,45,5,16,6,666};
 
 	auto s = Sort(a,12);
 

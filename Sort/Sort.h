@@ -12,7 +12,6 @@ public:
 private:
 	int* array;
 	int length;
-	//use vector or template to save int-array
 };
 
 Sort::Sort(int a[],int n){
@@ -49,19 +48,15 @@ void Sort::insert_sort(){
 		//also the element selected currently
 		int current_position=i;
 
-		//if array[j] greater than or equal the element before it
-		//then place array[j] on its current position
-		//turn to next circle
-		if(array[current_position]>=array[i-1])
-			continue;
+		for(int k=0;k<length;k++)
+			std::cout<<array[k]<<" ";
+		std::cout<<std::endl;
 
-		int insert_position;
+		int insert_position = current_position;
 		//we can use binary-find to specify the insert_position
-        for(int j=current_position-1;j>=0;j--)
-			if(array[j]>array[current_position]){
+        for(int j=current_position;j>=0;j--)
+			if(array[j]>array[current_position])
 				insert_position = j;
-				continue;
-			}
 
 		//insert element
         int tmp = array[current_position];
