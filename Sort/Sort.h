@@ -13,6 +13,8 @@ public:
 	bool is_sorted();
 	//rand number is in (min,max]
 	static int *generate_rand_array(int min,int max,int n);
+	void shell_sort();
+	void print_array();
 
 private:
 	int* array;
@@ -74,6 +76,40 @@ int* Sort::generate_rand_array(int min,int max,int n){
 	for(int i=0;i<n;i++)
 		a[i] = rand()%(max-min)+min+1;
 	return a;
+}
+
+void Sort::print_array(){
+	std::cout<<"The array is:";
+	for(int i=0;i<length;i++)
+		std::cout<<array[i]<<" ";
+	std::cout<<std::endl;
+}
+
+void Sort::shell_sort(){
+    //interval_sequence = 3n+1;
+    int interval_sequence = 1;
+    while(interval_sequence<length/3)
+		interval_sequence = interval_sequence*3+1;
+    while(interval_sequence>=1){
+		//divide array into the parts of the same interval
+		for(int i=0;i<interval_sequence;i++){
+			//for each part,using insert_sort
+			for(int j=i+interval_sequence;j<length;j+=interval_sequence){
+				//specify insert position
+				int insert_position = j;
+				for(int k=j-interval_sequence;k>=0;k-=interval_sequence)
+					if(array[j]<=array[k])
+						insert_position = k;
+				//insert element
+				int tmp = array[j];
+				for(int k=j;k!=insert_position;k-=interval_sequence)
+					array[k] = array[k-interval_sequence];
+				array[insert_position] = tmp;
+			}
+		}
+		interval_sequence = interval_sequence/3;
+    }
+
 }
 
 #endif // SORT_H_INCLUDED
