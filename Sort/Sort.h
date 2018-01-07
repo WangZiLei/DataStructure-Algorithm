@@ -22,6 +22,7 @@ public:
 	void my_quick_sort();
 	void _quick_array(int low,int high);
 	int _quick_sort_partition1(int low,int high);
+	int _quick_sort_partition2(int low,int high);
 	void print_array();
 
 private:
@@ -179,7 +180,7 @@ void Sort::_merge_array(int low,int high,int mid){
 }
 
 void Sort::my_quick_sort(){
-	int j = this->_quick_sort_partition1(0,this->length-1);
+	int j = this->_quick_sort_partition2(0,this->length-1);
 	printf("The divided element index is %d\n",j);
 }
 
@@ -187,7 +188,7 @@ void Sort::_quick_array(int low,int high){
 }
 
 int Sort::_quick_sort_partition1(int low,int high){
-	//This partition way in <<Algorithms>> 4th edition
+	//This partition way in <<Algorithms>> 4th Edition
 	//page 187
 
 	if(high<=low)
@@ -205,13 +206,29 @@ int Sort::_quick_sort_partition1(int low,int high){
 		int tmp = this->array[i];
 		this->array[i] = this->array[j];
 		this->array[j] = tmp;
-
 	}
 	//swap
 	int tmp = this->array[low];
 	this->array[low] = this->array[j];
 	this->array[j] = tmp;
 	return j;
+}
+
+int Sort::_quick_sort_partition2(int low,int high){
+	//This partition way in <<Data Structure In C Program>> 2th Edition
+	//ISBN 978711537950
+	//page 245
+    int pivotkey = this->array[low];
+    while(high>low){
+		while(this->array[high]>=pivotkey && high>low)
+			high--;
+		this->array[low] = this->array[high];
+		while(this->array[low]<=pivotkey && high>low)
+			low++;
+		this->array[high] = this->array[low];
+    }
+    this->array[low] = pivotkey;
+    return low;
 }
 
 

@@ -6,7 +6,7 @@ using namespace std;
 
 
 int main(){
-	const int ARRAY_LENGTH = 9;
+	const int ARRAY_LENGTH = 7;
 	int *a = Sort::generate_rand_array(0,156,ARRAY_LENGTH);
 	auto s = Sort(a,ARRAY_LENGTH);
 	s.print_array();
