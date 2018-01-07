@@ -3,17 +3,23 @@
 
 using namespace std;
 
+
+
 int main(){
-	const int array_length = 100000;
-	int *a = Sort::generate_rand_array(0,156,array_length);
-	auto s = Sort(a,array_length);
+	const int ARRAY_LENGTH = 9;
+	int *a = Sort::generate_rand_array(0,156,ARRAY_LENGTH);
+	auto s = Sort(a,ARRAY_LENGTH);
+	s.print_array();
+	//s._merge_array(0,ARRAY_LENGTH-1,ARRAY_LENGTH/2);
+	//s.print_array();
 
 	auto time_begin = clock();
-	s.insert_sort();
-	//s.print_array();
+	//s.insert_sort();
 	//s.select_sort();
-	s.shell_sort();
-	//s.print_array();
+	//s.shell_sort();
+	//s.merge_sort();
+	s.my_quick_sort();
+	s.print_array();
 	auto time_end = clock();
 	cout<<"Running time: "<<(double)(time_end-time_begin)<<"ms"<<endl;
 
@@ -22,7 +28,7 @@ int main(){
 	else
 		cout<<"Not Sorted!"<<endl;
 	/*
-	for(int i=0;i<array_length;i++)
+	for(int i=0;i<ARRAY_LENGTH;i++)
 		cout<<a[i]<<" ";
 	cout<<endl;
 	*/

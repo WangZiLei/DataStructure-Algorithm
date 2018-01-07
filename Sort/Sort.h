@@ -2,6 +2,8 @@
 #define SORT_H_INCLUDED
 
 #include <stdlib.h>
+#include <vector>
+#include <stdio.h>
 #include <time.h>
 
 class Sort{
@@ -10,10 +12,16 @@ public:
 	void quick_sort();
 	void insert_sort();
 	void select_sort();
+	void _merge_sort_up2bottom(int a[],int low,int high);
+	void _merge_array(int low,int high,int mid);
+	void merge_sort();
 	bool is_sorted();
 	//rand number is in (min,max]
 	static int *generate_rand_array(int min,int max,int n);
 	void shell_sort();
+	void my_quick_sort();
+	void _quick_array(int low,int high);
+	int _quick_sort_partition1(int low,int high);
 	void print_array();
 
 private:
@@ -107,9 +115,105 @@ void Sort::shell_sort(){
 				array[insert_position] = tmp;
 			}
 		}
+
 		interval_sequence = interval_sequence/3;
     }
+}
+
+void Sort::merge_sort(){
+	this->_merge_sort_up2bottom(array,0,length-1);
+}
+
+void Sort::_merge_sort_up2bottom(int a[],int low,int high){
+	//from up to bottom
+	if(a==nullptr || low>=high)
+		return;
+	if(high==low+1)
+		//swap
+		if(a[low]>a[high]){
+			int tmp = a[low];
+			a[low] = a[high];
+			a[high] = tmp;
+			return;
+		}
+
+	//array1 [low,mid)
+	//array2 [mid,high]
+	int mid = (low+high)/2;
+    _merge_sort_up2bottom(a,low,mid);
+    _merge_sort_up2bottom(a,mid+1,high);
+    //printf("low:%d,mid:%d,mid+1:%d,high:%d\n",low,mid,mid+1,high);
+	_merge_array(low,high,mid);
 
 }
+
+void Sort::_merge_array(int low,int high,int mid){
+	//merge
+	//array1 [low,mid)
+	//array2 [mid,high]
+	/*
+    int *b = new int[high-low+1];
+	if(b==nullptr)
+		return;
+		*/
+	std::vector<int> b(high-low+1);
+	int m=low,n=mid;
+	for(int i=0;i<=high;i++){
+		if(m<mid && n<=high){
+			if(array[m]>array[n])
+				b[i] = array[n++];
+			else
+				b[i] = array[m++];
+		}else{
+			if(m>=mid)
+				b[i] = array[n++];
+			else if(n>high)
+				b[i] = array[m++];
+		}
+	}
+	for(int i=0;i<high-low+1;i++)
+		this->array[low+i] = b[i];
+	printf("low%d,high%d,mid%d\n",low,high,mid);
+	this->print_array();
+	//delete []b;
+}
+
+void Sort::my_quick_sort(){
+	int j = this->_quick_sort_partition1(0,this->length-1);
+	printf("The divided element index is %d\n",j);
+}
+
+void Sort::_quick_array(int low,int high){
+}
+
+int Sort::_quick_sort_partition1(int low,int high){
+	//This partition way in <<Algorithms>> 4th edition
+	//page 187
+
+	if(high<=low)
+		return high-low;
+	int v = this->array[low];
+	int i=low,j=high+1;
+
+	//swap the elements not in place constantly until all elements have been compared
+	while(true){
+		while(i<high && this->array[++i]<=v);
+		while(j>low && this->array[--j]>=v);
+		if(j<=i)
+			break;
+		//swap
+		int tmp = this->array[i];
+		this->array[i] = this->array[j];
+		this->array[j] = tmp;
+
+	}
+	//swap
+	int tmp = this->array[low];
+	this->array[low] = this->array[j];
+	this->array[j] = tmp;
+	return j;
+}
+
+
 
 #endif // SORT_H_INCLUDED
