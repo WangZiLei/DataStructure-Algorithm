@@ -180,11 +180,15 @@ void Sort::_merge_array(int low,int high,int mid){
 }
 
 void Sort::my_quick_sort(){
-	int j = this->_quick_sort_partition2(0,this->length-1);
-	printf("The divided element index is %d\n",j);
+	this->_quick_array(0,this->length-1);
 }
 
 void Sort::_quick_array(int low,int high){
+	if(low>=high)
+		return;
+    int i = this->_quick_sort_partition2(low,high);
+    this->_quick_array(low,i);
+    this->_quick_array(i+1,high);
 }
 
 int Sort::_quick_sort_partition1(int low,int high){
